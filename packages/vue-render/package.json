@@ -8,13 +8,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-lib": "vue-cli-service build --target lib --name LeFE-vue-page --dest lib index.js",
+    "build-lib": "vue-cli-service build --target lib --name lefe-vue-page --dest lib index.js",
     "lint": "vue-cli-service lint"
   },
-  "dependencies": {
+  "peerDependencies": {
     "core-js": "^3.6.5",
-    "lefe-utils": "^1.0.0",
     "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "lefe-utils": "^1.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
