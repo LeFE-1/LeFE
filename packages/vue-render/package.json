@@ -1,6 +1,6 @@
 {
   "name": "lefe-vue-render",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "author": "",
@@ -16,7 +16,7 @@
     "vue": "^3.0.0"
   },
   "dependencies": {
-    "lefe-utils": "^1.0.0"
+    "lefe-utils": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
