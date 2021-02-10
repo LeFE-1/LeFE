@@ -4,7 +4,7 @@ export default {
   src: String, // async block js 地址
   children: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   slot_LeFE: String, // 容器组件中存在两个及以上插槽时的标识
   state: [String, Array], // 绑定的页面状态
@@ -12,7 +12,7 @@ export default {
   // 渲染条件
   condition: {
     type: [String, Function, Boolean],
-    default: true,
+    default: true
   },
 
   // 事件对象
@@ -22,7 +22,7 @@ export default {
   },
   props: {
     type: Object,
-    default: () => ({}),
+    default: () => ({})
   },
   // 当前页面状态
   store: Object,
