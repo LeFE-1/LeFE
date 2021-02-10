@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "strict": true,
+    "module": "commonjs",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "target": "es2015",
+    "lib": ["es2015", "dom"],
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "paths": {},
+    "types": [
+      "jest",
+      "node"
+    ]
+  },
+  "include": ["packages"],
+  "exclude": ["node_modules", "dist", "types", "__test__"]
+}
