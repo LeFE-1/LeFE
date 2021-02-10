@@ -14,6 +14,8 @@
     "tsc": "tsc"
   },
   "devDependencies": {
+    "vue": "^3.0.5",
+    "@vue/cli-plugin-eslint": "~4.5.0",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@types/jest": "^26.0.20",

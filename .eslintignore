@@ -1,5 +1,3 @@
 node_modules
 dist
 coverage
-packages/vue-render
-packages/utils
