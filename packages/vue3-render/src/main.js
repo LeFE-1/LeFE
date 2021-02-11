@@ -1,19 +1,18 @@
-import Page from './src/components/Page'
-import Block from './src/components/Block'
+import Toolkit from 'lefe-toolkits'
+import Page from './components/Page'
+import Block from './components/Block'
 // container
-import Tabs from './src/components/Container/Tabs/index'
-import TabPane from './src/components/Container/TabPane/index'
-import Table from './src/components/Container/Table/index'
-import TableColumn from './src/components/Container/TableColumn/index'
+import Tabs from './components/Container/Tabs/index'
+import TabPane from './components/Container/TabPane/index'
+import Table from './components/Container/Table/index'
+import TableColumn from './components/Container/TableColumn/index'
 
 // form
-import Form from './src/components/Form/Form/index'
-import FormItem from './src/components/Form/FormItem/index'
-import Input from './src/components/Form/Input/index'
+import Form from './components/Form/Form/index'
+import FormItem from './components/Form/FormItem/index'
+import Input from './components/Form/Input/index'
 // block
-import Button from './src/components/Block/Button/index'
-
-import LeFEUtils from 'lefe-utils'
+import Button from './components/Block/Button/index'
 
 const LeFEPage = {
   install: function (app, options) {
@@ -31,7 +30,7 @@ const LeFEPage = {
     app.component('lefe-input', Input[UILibrary])
     // block
     app.component('lefe-button', Button[UILibrary])
-    app.provide('eventEmitter', new LeFEUtils.EventEmitter())
+    app.provide('eventEmitter', new Toolkit.EventEmitter())
     app.provide('http', options.http)
     // app.config.globalProperties.$eventEmitter = new EventEmitter();
   }

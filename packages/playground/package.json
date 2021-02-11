@@ -1,22 +1,22 @@
 {
-  "name": "lefe-vue-render",
+  "name": "lefe-playground",
   "version": "0.0.2",
   "description": "",
-  "main": "index.js",
-  "author": "",
+  "private": true,
+  "author": "gavincly@163.com",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-lib": "vue-cli-service build --target lib --name lefe-vue-page --dest lib index.js",
+    "build-lib": "vue-cli-service build --target lib --name index.js --dest lib",
     "lint": "vue-cli-service lint"
   },
-  "peerDependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^3.0.5"
-  },
   "dependencies": {
-    "lefe-utils": "^1.0.1"
+    "core-js": "^3.6.5",
+    "element-plus": "^1.0.1-beta.27",
+    "lefe-vue3-render": "0.0.2",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

@@ -6,14 +6,14 @@ import {
   onBeforeMount,
   watch
 } from 'vue'
-import LeFEUtils from 'lefe-utils'
+import Toolkit from 'lefe-toolkits'
 
 const tpl = (key, data) => {
   if (!key) return ''
   if (typeof key === 'function') return key(data)
-  return key.includes('${') ? LeFEUtils.template(key, data) : key
+  return key.includes('${') ? Toolkit.template(key, data) : key
 }
-const parseValue = (key, data) => LeFEUtils.getByChain(data, tpl(key, data))
+const parseValue = (key, data) => Toolkit.getByChain(data, tpl(key, data))
 
 const traversal = block => {
   let result = []
@@ -87,7 +87,7 @@ export function state(props) {
   // const store = reactive(props.store);
   const stateValue = ref(parseValue(stateKey.value, props.store))
   watch(
-    () => LeFEUtils.getByChain(props.store, stateKey.value),
+    () => Toolkit.getByChain(props.store, stateKey.value),
     newValue => {
       if (newValue == stateValue.value) return
       stateValue.value = newValue
@@ -148,7 +148,7 @@ export function dataSource(props) {
     } else if (typeof dataSource === 'string') {
       dataArray.value = parseValue(dataSource, props.store)
       watch(
-        () => LeFEUtils.getByChain(props.store, dataSource),
+        () => Toolkit.getByChain(props.store, dataSource),
         newValue => {
           dataArray.value = newValue
           originDataArray.value = newValue

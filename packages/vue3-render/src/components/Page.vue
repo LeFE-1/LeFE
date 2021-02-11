@@ -10,7 +10,7 @@
 <script>
   import { reactive, computed, watch, inject, ref } from 'vue'
   import Block from './Block'
-  import LeFEUtils from 'lefe-utils';
+  import Toolkit from 'lefe-toolkits';
 
   export default {
     name: 'LeFEPage',
@@ -43,7 +43,7 @@
     },
 
     setup(props, context) {
-      LeFEUtils.getDerivedState(JSON.parse(JSON.stringify(props.state)), { children: props.children })
+      Toolkit.getDerivedState(JSON.parse(JSON.stringify(props.state)), { children: props.children })
       const eventEmitter = inject('eventEmitter');
       const store = {};
       Object.keys(props.state).forEach(key => {
@@ -68,13 +68,13 @@
         const value = props.watch[key];
         if (Object.prototype.toString.call(value) === '[object Function]') {
           watch(
-            () => LeFEUtils.getByChain(store, key),
+            () => Toolkit.getByChain(store, key),
             (newVal, oldVal) => value(newVal, oldVal, context),
           )
         } else if (Object.prototype.toString.call(value) === '[object Object]') {
           const { handler, ...options } = value;
           watch(
-            () => LeFEUtils.getByChain(store, key),
+            () => Toolkit.getByChain(store, key),
             (newVal, oldVal) => handler(newVal, oldVal, context),
             options
           )
@@ -92,7 +92,7 @@
 
     data() {
       return {
-        LeFE_ID: LeFEUtils.md5(JSON.stringify(this.state)),
+        LeFE_ID: Toolkit.md5(JSON.stringify(this.state)),
       }
     },
 
@@ -149,7 +149,7 @@
         if (!Object.prototype.hasOwnProperty.call(this, key)) {  // XXX 只支持 a.b 形式
           if (key.includes('.')) {
             const keys = key.split('.');
-            const parent = LeFEUtils.getByChain(this, keys.splice(0, keys.length - 1));
+            const parent = Toolkit.getByChain(this, keys.splice(0, keys.length - 1));
             parent[keys[keys.length - 1]] = value;
             return resolve && resolve(value);
           }

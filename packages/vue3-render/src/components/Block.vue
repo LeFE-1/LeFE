@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import LeFEUtils from 'lefe-utils'
+  import Toolkit from 'lefe-toolkits'
   import props from '../composition/props'
   import { common } from '../composition/setup'
 
@@ -35,7 +35,7 @@
     computed: {
       md5componentName() {
         if (this.src || (this.blocks.length && this.blocks[0].src)) {
-          return this.componentName + '-' + LeFEUtils.md5(this.src);
+          return this.componentName + '-' + Toolkit.md5(this.src);
         } else {
           return this.componentName;
         }
