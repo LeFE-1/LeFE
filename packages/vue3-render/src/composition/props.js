@@ -7,7 +7,7 @@ export default {
     default: () => []
   },
   slot_LeFE: String, // 容器组件中存在两个及以上插槽时的标识
-  state: [String, Array], // 绑定的页面状态
+  state: String, // 绑定的页面状态
   render: [Number, String, Function],
   // 渲染条件
   condition: {
@@ -36,7 +36,7 @@ export default {
   /**
    * 数据源
    * dataSource: {
-   *   trigger: 'focus'
+   *   immediate: true 
    *   url: '',
    *   method: '',
    *   body: [],

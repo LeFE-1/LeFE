@@ -46,7 +46,7 @@
         return loop instanceof Array
           ? loop
           : typeof loop === 'string'
-            ? this.parseValue(loop).map((block, index) => ({
+            ? this.parseValueWithData(loop).map((block, index) => ({
               ...block,
               _id: this.id + '_' + index,
             }))

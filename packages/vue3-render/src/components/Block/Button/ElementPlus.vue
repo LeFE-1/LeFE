@@ -2,7 +2,6 @@
   <el-button
     v-bind="mergedProps"
     :loading="eventLoading"
-    :disabled="disabled(props.disabled)"
     @click.prevent="click"
   >
     <div style="display: inline-block" v-html="parseRender"></div>

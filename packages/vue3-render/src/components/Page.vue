@@ -47,7 +47,7 @@
       const eventEmitter = inject('eventEmitter');
       const store = {};
       Object.keys(props.state).forEach(key => {
-        store[key] = typeof props.state[key] == "object"
+        store[key] = Object.prototype.toString.call(props.state[key]) === "object"
           ? reactive(props.state[key])
           : ref(props.state[key])
       })

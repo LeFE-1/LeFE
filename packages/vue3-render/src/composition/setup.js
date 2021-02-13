@@ -8,13 +8,6 @@ import {
 } from 'vue'
 import Toolkit from 'lefe-toolkits'
 
-const tpl = (key, data) => {
-  if (!key) return ''
-  if (typeof key === 'function') return key(data)
-  return key.includes('${') ? Toolkit.template(key, data) : key
-}
-const parseValue = (key, data) => Toolkit.getByChain(data, tpl(key, data))
-
 const traversal = block => {
   let result = []
   if (!block.children || !block.children.length) return [block]
@@ -23,55 +16,61 @@ const traversal = block => {
   })
   return result
 }
+const tpl = (key, data) => {
+  if (!key) return ''
+  if (typeof key === 'function') return key(data)
+  return key.includes('${') ? Toolkit.template(key, data) : key
+}
+const parseValueWithData = (key, data) => Toolkit.getByChain(data, tpl(key, data))
+const parseValue = (value, data, defaultValue) => {
+  if (value === undefined) return defaultValue
+  if (typeof value === 'boolean')
+    return value
+  if (typeof value === 'string')
+    return parseValueWithData(value, data)
+  if (typeof value === 'function')
+    return value(data)
+  return defaultValue
+}
 
 export function common(props, context, params) {
   const { defaultProps = {} } = params || {}
-  const mergedProps = computed(() => {
+  const parseProps = (pProps, data = {}) => {
+    if (!pProps) return {};
     const p = {}
     // 处理'-'到驼峰
-    Object.keys(props.props).forEach(key => {
+    Object.keys(pProps).forEach(key => {
       const LeFEIndex = key.indexOf('_LeFE')
-      let value = props.props[key]
-      // console.log('key', key, value, props.store)
+      let value = pProps[key]
       if (LeFEIndex != -1) {
         key = key.substr(0, LeFEIndex)
-        value = parseValue(value, props.store)
+        value = parseValue(value, { ...props.store, ...data })
       }
       const index = key.indexOf('-')
       if (index == -1) {
         p[key] = value
       } else {
         p[
-          key.slice(0, index) +
-            key[index + 1].toUpperCase() +
-            key.substr(index + 2)
-        ] = props.props[key]
+        key.slice(0, index) +
+        key[index + 1].toUpperCase() +
+        key.substr(index + 2)
+          ] = pProps[key]
       }
     })
-    return Object.assign(defaultProps, p)
-  })
-  const vif = condition => {
-    if (condition === undefined) return true
-    if (typeof condition === 'boolean') return condition
-    if (typeof condition === 'string')
-      return !!parseValue(condition, props.store)
-    if (typeof condition === 'function') return !!condition(props.store)
-    return true
-  }
-  const disabled = disabled => {
-    if (disabled === undefined) return false
-    if (typeof disabled === 'boolean') return disabled
-    if (typeof disabled === 'string') return !!parseValue(disabled, props.store)
-    if (typeof disabled === 'function') return !!disabled(props.store)
-    return false
+    return p
   }
 
+  const mergedProps = computed(() => Object.assign(defaultProps, parseProps(props.props)))
+  const vif = condition => !!parseValue(condition, props.store, true)
+  // const disabled = disabled => !!parseValue(disabled, props.store, false)
+
   return {
+    parseProps,
     mergedProps,
     tpl: key => tpl(key, props.store),
     vif,
-    disabled,
-    parseValue: key => parseValue(key, props.store),
+    // disabled,
+    parseValueWithData: key => parseValueWithData(key, props.store),
     parseRender: computed(() => tpl(props.render, props.store)),
     traversal
   }
@@ -81,11 +80,9 @@ export function state(props) {
   const eventEmitter = inject('eventEmitter')
   const stateKey = computed(() => {
     const { state } = props
-    if (state === undefined) return state
-    return state instanceof Array ? state[0] : tpl(state, props.store)
+    return state === undefined ? state : tpl(state, props.store)
   })
-  // const store = reactive(props.store);
-  const stateValue = ref(parseValue(stateKey.value, props.store))
+  const stateValue = ref(parseValueWithData(stateKey.value, props.store))
   watch(
     () => Toolkit.getByChain(props.store, stateKey.value),
     newValue => {
@@ -146,7 +143,7 @@ export function dataSource(props) {
     if (dataSource instanceof Array) {
       dataArray.value = dataSource
     } else if (typeof dataSource === 'string') {
-      dataArray.value = parseValue(dataSource, props.store)
+      dataArray.value = parseValueWithData(dataSource, props.store)
       watch(
         () => Toolkit.getByChain(props.store, dataSource),
         newValue => {
@@ -158,7 +155,7 @@ export function dataSource(props) {
     originDataArray.value = dataArray.value
   }
 
-  const _fetch = params => {
+  const fetch = params => {
     const { store, dataSource } = props
     if (typeof dataSource !== 'object') return new Promise(resolve => resolve())
     const {
@@ -184,10 +181,17 @@ export function dataSource(props) {
       return repFormat
     })
   }
+  onBeforeMount(() => {
+    if (props.dataSource && props.dataSource.immediate) {
+      fetch().then(data => {
+        dataArray.value = data;
+      })
+    }
+  })
   return {
     dataArray,
     originDataArray,
-    _fetch
+    fetch
   }
 }
 
@@ -246,7 +250,7 @@ export function rules(props) {
   const model = computed(() => {
     const result = {}
     Object.keys(props.props.rules).forEach(key => {
-      result[key.replace(/\./gi, '-')] = parseValue(key, props.store)
+      result[key.replace(/\./gi, '-')] = parseValueWithData(key, props.store)
     })
     return result
   })

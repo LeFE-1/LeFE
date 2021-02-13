@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="main">
-      <lefe-page v-if="!editing" v-bind="page" />
+<!--      <lefe-page v-if="!editing" v-bind="page" />-->
     </div>
     <div class="navbar">
       <div class="tpls">

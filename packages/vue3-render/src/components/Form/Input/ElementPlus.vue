@@ -4,7 +4,6 @@
     @input="input"
     @blur="blur"
     @clear="change('')"
-    :disabled="disabled()"
     v-model="stateValue"
   >
     <template v-if="mergedProps.prepend" #prepend>{{ tpl(mergedProps.prepend) }}</template>

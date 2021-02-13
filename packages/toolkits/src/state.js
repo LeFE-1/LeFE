@@ -15,6 +15,7 @@ export const template = function (tpl, data) {
 }
 
 export const getByChain = function (data, keyString) {
+  if (keyString === undefined) return undefined
   const keys = typeof keyString === 'string' ? keyString.split('.') : keyString
   if (!keys.length) return undefined
   if (data[keys[0]] === undefined || data[keys[0]] === null)

@@ -62,14 +62,14 @@
       }
     },
     methods: {
-      fetch() {
+      load() {
         const { page, pageSize, dataSource, mergedProps: { pagination }, originDataArray } = this;
         if (typeof dataSource === 'string' || dataSource instanceof Array) {
           this.dataArray = pagination ? originDataArray.slice((page - 1) * pageSize, page * pageSize) : originDataArray;
           return;
         }
         this.loading = true;
-        return this._fetch({ page, pageSize }).then(({ data, total }) => {
+        return this.fetch({ page, pageSize }).then(({ data, total }) => {
           this.loading = false;
           this.total = total;
           this.dataArray = data;
@@ -83,12 +83,12 @@
       handleSizeChange(pageSize) {
         this.page = 1;
         this.pageSize = pageSize;
-        this.fetch()
+        this.load()
       },
 
       handleCurrentChange(page) {
         this.page = page;
-        this.fetch()
+        this.load()
       },
 
       onSortChange({ prop, order }) {
@@ -98,7 +98,7 @@
           return;
         }
         this.loading = true;
-        this._fetch({ page, pageSize, sort: [prop, order] }).then(({ data, total }) => {
+        this.fetch({ page, pageSize, sort: [prop, order] }).then(({ data, total }) => {
           this.loading = false;
           this.total = total;
           this.dataArray = data;
