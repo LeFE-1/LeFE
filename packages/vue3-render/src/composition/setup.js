@@ -21,22 +21,20 @@ const tpl = (key, data) => {
   if (typeof key === 'function') return key(data)
   return key.includes('${') ? Toolkit.template(key, data) : key
 }
-const parseValueWithData = (key, data) => Toolkit.getByChain(data, tpl(key, data))
+const parseValueWithData = (key, data) =>
+  Toolkit.getByChain(data, tpl(key, data))
 const parseValue = (value, data, defaultValue) => {
   if (value === undefined) return defaultValue
-  if (typeof value === 'boolean')
-    return value
-  if (typeof value === 'string')
-    return parseValueWithData(value, data)
-  if (typeof value === 'function')
-    return value(data)
+  if (typeof value === 'boolean') return value
+  if (typeof value === 'string') return parseValueWithData(value, data)
+  if (typeof value === 'function') return value(data)
   return defaultValue
 }
 
 export function common(props, context, params) {
   const { defaultProps = {} } = params || {}
   const parseProps = (pProps, data = {}) => {
-    if (!pProps) return {};
+    if (!pProps) return {}
     const p = {}
     // 处理'-'到驼峰
     Object.keys(pProps).forEach(key => {
@@ -51,16 +49,18 @@ export function common(props, context, params) {
         p[key] = value
       } else {
         p[
-        key.slice(0, index) +
-        key[index + 1].toUpperCase() +
-        key.substr(index + 2)
-          ] = pProps[key]
+          key.slice(0, index) +
+            key[index + 1].toUpperCase() +
+            key.substr(index + 2)
+        ] = pProps[key]
       }
     })
     return p
   }
 
-  const mergedProps = computed(() => Object.assign(defaultProps, parseProps(props.props)))
+  const mergedProps = computed(() =>
+    Object.assign(defaultProps, parseProps(props.props))
+  )
   const vif = condition => !!parseValue(condition, props.store, true)
   // const disabled = disabled => !!parseValue(disabled, props.store, false)
 
@@ -184,7 +184,7 @@ export function dataSource(props) {
   onBeforeMount(() => {
     if (props.dataSource && props.dataSource.immediate) {
       fetch().then(data => {
-        dataArray.value = data;
+        dataArray.value = data
       })
     }
   })

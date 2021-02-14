@@ -36,7 +36,7 @@ export default {
   /**
    * 数据源
    * dataSource: {
-   *   immediate: true 
+   *   immediate: true
    *   url: '',
    *   method: '',
    *   body: [],

@@ -2,9 +2,6 @@
   "name": "LeFE",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "packages": [
-    "packages/*"
-  ],
   "version": "independent",
   "command": {
     "publish": {
