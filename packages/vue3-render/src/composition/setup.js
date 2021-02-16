@@ -8,71 +8,22 @@ import {
 } from 'vue'
 import Toolkit from 'lefe-toolkits'
 
-const traversal = block => {
-  let result = []
-  if (!block.children || !block.children.length) return [block]
-  block.children.forEach(child => {
-    result = result.concat(traversal(child))
-  })
-  return result
-}
-const tpl = (key, data) => {
-  if (!key) return ''
-  if (typeof key === 'function') return key(data)
-  return key.includes('${') ? Toolkit.template(key, data) : key
-}
-const parseValueWithData = (key, data) =>
-  Toolkit.getByChain(data, tpl(key, data))
-const parseValue = (value, data, defaultValue) => {
-  if (value === undefined) return defaultValue
-  if (typeof value === 'boolean') return value
-  if (typeof value === 'string') return parseValueWithData(value, data)
-  if (typeof value === 'function') return value(data)
-  return defaultValue
-}
-
 export function common(props, context, params) {
   const { defaultProps = {} } = params || {}
-  const parseProps = (pProps, data = {}) => {
-    if (!pProps) return {}
-    const p = {}
-    // 处理'-'到驼峰
-    Object.keys(pProps).forEach(key => {
-      const LeFEIndex = key.indexOf('_LeFE')
-      let value = pProps[key]
-      if (LeFEIndex != -1) {
-        key = key.substr(0, LeFEIndex)
-        value = parseValue(value, { ...props.store, ...data })
-      }
-      const index = key.indexOf('-')
-      if (index == -1) {
-        p[key] = value
-      } else {
-        p[
-          key.slice(0, index) +
-            key[index + 1].toUpperCase() +
-            key.substr(index + 2)
-        ] = pProps[key]
-      }
-    })
-    return p
-  }
 
   const mergedProps = computed(() =>
-    Object.assign(defaultProps, parseProps(props.props))
+    Object.assign(defaultProps, Toolkit.parseProps(props.props, props.store))
   )
-  const vif = condition => !!parseValue(condition, props.store, true)
-  // const disabled = disabled => !!parseValue(disabled, props.store, false)
+  const vif = condition => !!Toolkit.parseValue(condition, props.store, true)
 
   return {
-    parseProps,
+    parseProps: (pProps, data) =>
+      Toolkit.parseProps(pProps, { ...props.store, ...data }),
     mergedProps,
-    tpl: key => tpl(key, props.store),
+    tpl: key => Toolkit.tpl(key, props.store),
     vif,
-    // disabled,
-    parseValueWithData: key => parseValueWithData(key, props.store),
-    parseRender: computed(() => tpl(props.render, props.store)),
-    traversal
+    parseValueWithData: key => Toolkit.parseValueWithData(key, props.store),
+    parseRender: computed(() => Toolkit.tpl(props.render, props.store))
   }
 }
 
@@ -80,9 +31,11 @@ export function state(props) {
   const eventEmitter = inject('eventEmitter')
   const stateKey = computed(() => {
     const { state } = props
-    return state === undefined ? state : tpl(state, props.store)
+    return state === undefined ? state : Toolkit.tpl(state, props.store)
   })
-  const stateValue = ref(parseValueWithData(stateKey.value, props.store))
+  const stateValue = ref(
+    Toolkit.parseValueWithData(stateKey.value, props.store)
+  )
   watch(
     () => Toolkit.getByChain(props.store, stateKey.value),
     newValue => {
@@ -91,7 +44,7 @@ export function state(props) {
     }
   )
   return {
-    state: stateKey,
+    stateKey,
     stateValue,
     change: (value, key) => {
       eventEmitter.emit(`change_${props.store.LeFE_ID}`, {
@@ -143,7 +96,7 @@ export function dataSource(props) {
     if (dataSource instanceof Array) {
       dataArray.value = dataSource
     } else if (typeof dataSource === 'string') {
-      dataArray.value = parseValueWithData(dataSource, props.store)
+      dataArray.value = Toolkit.parseValueWithData(dataSource, props.store)
       watch(
         () => Toolkit.getByChain(props.store, dataSource),
         newValue => {
@@ -170,11 +123,11 @@ export function dataSource(props) {
     // 阻止发送请求
     if (typeof body === 'boolean' && body === false)
       return new Promise(resolve => resolve(false))
-    return http[method](tpl(url, props.store), body).then(rep => {
+    return http[method](Toolkit.tpl(url, props.store), body).then(rep => {
       const repFormat = repFormatter(rep, body, store)
       if (state) {
         eventEmitter.emit(`change_${props.store.LeFE_ID}`, {
-          key: tpl(state, props.store),
+          key: Toolkit.tpl(state, props.store),
           value: repFormat instanceof Array ? repFormat : repFormat.data
         })
       }
@@ -200,7 +153,8 @@ export function exportKey(props) {
   onBeforeMount(() => {
     const eventEmitter = inject('eventEmitter')
     const internalInstance = getCurrentInstance()
-    const key = tpl(props.exportsKey, props.store) + '_' + props.store.LeFE_ID
+    const key =
+      Toolkit.tpl(props.exportsKey, props.store) + '_' + props.store.LeFE_ID
     eventEmitter.removeListener(key)
     eventEmitter.addListener(
       key,
@@ -250,7 +204,10 @@ export function rules(props) {
   const model = computed(() => {
     const result = {}
     Object.keys(props.props.rules).forEach(key => {
-      result[key.replace(/\./gi, '-')] = parseValueWithData(key, props.store)
+      result[key.replace(/\./gi, '-')] = Toolkit.parseValueWithData(
+        key,
+        props.store
+      )
     })
     return result
   })

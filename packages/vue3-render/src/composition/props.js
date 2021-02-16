@@ -39,7 +39,6 @@ export default {
    *   immediate: true
    *   url: '',
    *   method: '',
-   *   body: [],
    *   bodyFormatter: function{
    *   repFormatter: function (rep, body, store) {
    *     return []

@@ -31,7 +31,31 @@ export default {
               props: {
                 label: '标签1',
                 name: '1'
-              }
+              },
+              children: [
+                {
+                  state: 'tab',
+                  componentName: 'lefe-tabs',
+                  children: [
+                    {
+                      componentName: 'lefe-tab-pane',
+                      props: {
+                        label: '标签1',
+                        name: '1'
+                      }
+                    },
+                    {
+                      loop: 'tabs',
+                      loopArgs: ['t', 'tIndex'],
+                      componentName: 'lefe-tab-pane',
+                      props: {
+                        label_LeFE: 't.label',
+                        name_LeFE: 't.name'
+                      }
+                    }
+                  ]
+                },
+              ]
             },
             {
               loop: 'tabs',
@@ -44,6 +68,7 @@ export default {
             }
           ]
         },
+        
       ]
     }
   },

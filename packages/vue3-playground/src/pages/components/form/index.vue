@@ -40,7 +40,9 @@ export default {
           },
           children: [
             {
-              label: '用户',
+              props: {
+                label: '用户',
+              },
               componentName: 'lefe-form-item',
               children: [
                 {
@@ -50,7 +52,9 @@ export default {
               ]
             },
             {
-              label: '有效期',
+              props: {
+                label: '有效期',
+              },
               componentName: 'lefe-form-item',
               children: [
                 {
