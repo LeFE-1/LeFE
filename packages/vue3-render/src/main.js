@@ -48,11 +48,11 @@ const LeFEPage = {
     app.component('lefe-table-column', TableColumn[UILibrary])
     app.component('lefe-card', Card[UILibrary])
     app.component('lefe-row', Row[UILibrary])
-    app.component('lefe-col', Col[UILibrary]) 
-    app.component('lefe-dialog', Dialog[UILibrary]) 
-    app.component('lefe-drawer', Drawer[UILibrary]) 
-    app.component('lefe-popover', Popover[UILibrary]) 
-    app.component('lefe-tooltip', Tooltip[UILibrary]) 
+    app.component('lefe-col', Col[UILibrary])
+    app.component('lefe-dialog', Dialog[UILibrary])
+    app.component('lefe-drawer', Drawer[UILibrary])
+    app.component('lefe-popover', Popover[UILibrary])
+    app.component('lefe-tooltip', Tooltip[UILibrary])
     // form
     app.component('lefe-form', Form[UILibrary])
     app.component('lefe-form-item', FormItem[UILibrary])
@@ -74,7 +74,7 @@ const LeFEPage = {
     app.component('lefe-steps', Steps[UILibrary])
     app.component('lefe-tag', Tag[UILibrary])
     app.component('lefe-upload', Upload[UILibrary])
-    
+
     app.provide('eventEmitter', new Toolkit.EventEmitter())
     app.provide('http', options.http)
   }

@@ -6,6 +6,13 @@ const {
   getDerivedState,
   createChain
 } = require('./src/state')
+const {
+  traversal,
+  parseProps,
+  parseValue,
+  parseValueWithData,
+  tpl
+} = require('./src/parse')
 
 export default {
   EventEmitter,
@@ -13,5 +20,10 @@ export default {
   template,
   getByChain,
   getDerivedState,
-  createChain
+  createChain,
+  traversal,
+  parseProps,
+  parseValue,
+  parseValueWithData,
+  tpl
 }

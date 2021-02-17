@@ -21,7 +21,7 @@
         @current-change="handleCurrentChange"
         :current-page="page"
         :page-sizes="mergedProps.pageSizes"
-        :page-size="mergedProps.pageSize"
+        :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
       >
@@ -32,7 +32,7 @@
 
 <script>
   import props from '../../../composition/props'
-  import { common, events, exportKey, dataSource } from '../../../composition/setup'
+  import { common, events, exportKey, dataSource, state } from '../../../composition/setup'
 
   export default {
     name: 'LeFETable',
@@ -50,6 +50,7 @@
         ...c,
         ...events(props),
         ...d,
+        ...state(props),
         pageSize: c.mergedProps.pageSize,
         total: d.dataArray.value.length
       }
@@ -58,7 +59,6 @@
       return {
         page: 1,
         loading: false,
-        selection: [],
       }
     },
     methods: {
@@ -109,13 +109,23 @@
         })
       },
 
-      onSelectionChange() {
-
+      onExpandChange(row, expandedRows) {
+        this.trigger('expandChange', { row, expandedRows })
       },
 
-      onExpandChange() {
+      // TODO 下面的方式尚未自测
+      onSelectionChange(value) {
+        this.change(value)
+      },
+      
+      clearSelection() {
+        this.change([])
+        this.$refs.table.clearSelection()
+      },
 
-      }
+      toggleAllSelection() {
+        this.$refs.table.toggleAllSelection()
+      },
     }
   }
 </script>

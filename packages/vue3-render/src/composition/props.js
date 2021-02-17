@@ -36,10 +36,9 @@ export default {
   /**
    * 数据源
    * dataSource: {
-   *   immediate: true 
+   *   immediate: true
    *   url: '',
    *   method: '',
-   *   body: [],
    *   bodyFormatter: function{
    *   repFormatter: function (rep, body, store) {
    *     return []
