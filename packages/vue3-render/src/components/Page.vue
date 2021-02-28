@@ -18,7 +18,6 @@
     components: { Block },
 
     props: {
-      componentName: String,
       children: Array,
       state: {
         type: Object,

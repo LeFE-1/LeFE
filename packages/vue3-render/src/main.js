@@ -36,7 +36,10 @@ import Steps from './components/Block/Steps/index.js'
 import Tag from './components/Block/Tag/index.js'
 import Upload from './components/Block/Upload/index.js'
 
-const LeFEPage = {
+import props from './composition/props'
+import { common, state, events, dataSource, exportKey } from './composition/setup'
+
+const Render = {
   install: function (app, options) {
     const UILibrary = options.UILibrary || ''
     app.component('lefe-page', Page)
@@ -77,7 +80,17 @@ const LeFEPage = {
 
     app.provide('eventEmitter', new LeFE.EventEmitter())
     app.provide('http', options.http)
+  },
+  Page,
+  Block,
+  setup: {
+    props,
+    common, 
+    state, 
+    events, 
+    dataSource, 
+    exportKey
   }
 }
 
-export default LeFEPage
+export default Render
