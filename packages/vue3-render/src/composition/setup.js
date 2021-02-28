@@ -6,24 +6,24 @@ import {
   onBeforeMount,
   watch
 } from 'vue'
-import Toolkit from 'lefe-toolkits'
+import LeFE from '@lefe/api'
 
 export function common(props, context, params) {
   const { defaultProps = {} } = params || {}
 
   const mergedProps = computed(() =>
-    Object.assign(defaultProps, Toolkit.parseProps(props.props, props.store))
+    Object.assign(defaultProps, LeFE.parseProps(props.props, props.store))
   )
-  const vif = condition => !!Toolkit.parseValue(condition, props.store, true)
+  const vif = condition => !!LeFE.parseValue(condition, props.store, true)
 
   return {
     parseProps: (pProps, data) =>
-      Toolkit.parseProps(pProps, { ...props.store, ...data }),
+      LeFE.parseProps(pProps, { ...props.store, ...data }),
     mergedProps,
-    tpl: key => Toolkit.tpl(key, props.store),
+    render: key => LeFE.render(key, props.store),
     vif,
-    parseValueWithData: key => Toolkit.parseValueWithData(key, props.store),
-    parseRender: computed(() => Toolkit.tpl(props.render, props.store))
+    parseValueWithData: key => LeFE.parseValueWithData(key, props.store),
+    parseRender: computed(() => LeFE.render(props.render, props.store))
   }
 }
 
@@ -31,13 +31,11 @@ export function state(props) {
   const eventEmitter = inject('eventEmitter')
   const stateKey = computed(() => {
     const { state } = props
-    return state === undefined ? state : Toolkit.tpl(state, props.store)
+    return state === undefined ? state : LeFE.template(state, props.store)
   })
-  const stateValue = ref(
-    Toolkit.parseValueWithData(stateKey.value, props.store)
-  )
+  const stateValue = ref(LeFE.parseValueWithData(stateKey.value, props.store))
   watch(
-    () => Toolkit.getByChain(props.store, stateKey.value),
+    () => LeFE.getByChain(props.store, stateKey.value),
     newValue => {
       if (newValue == stateValue.value) return
       stateValue.value = newValue
@@ -96,9 +94,9 @@ export function dataSource(props) {
     if (dataSource instanceof Array) {
       dataArray.value = dataSource
     } else if (typeof dataSource === 'string') {
-      dataArray.value = Toolkit.parseValueWithData(dataSource, props.store)
+      dataArray.value = LeFE.parseValueWithData(dataSource, props.store)
       watch(
-        () => Toolkit.getByChain(props.store, dataSource),
+        () => LeFE.getByChain(props.store, dataSource),
         newValue => {
           dataArray.value = newValue
           originDataArray.value = newValue
@@ -123,11 +121,11 @@ export function dataSource(props) {
     // 阻止发送请求
     if (typeof body === 'boolean' && body === false)
       return new Promise(resolve => resolve(false))
-    return http[method](Toolkit.tpl(url, props.store), body).then(rep => {
+    return http[method](LeFE.render(url, props.store), body).then(rep => {
       const repFormat = repFormatter(rep, body, store)
       if (state) {
         eventEmitter.emit(`change_${props.store.LeFE_ID}`, {
-          key: Toolkit.tpl(state, props.store),
+          key: LeFE.template(state, props.store),
           value: repFormat instanceof Array ? repFormat : repFormat.data
         })
       }
@@ -154,7 +152,7 @@ export function exportKey(props) {
     const eventEmitter = inject('eventEmitter')
     const internalInstance = getCurrentInstance()
     const key =
-      Toolkit.tpl(props.exportsKey, props.store) + '_' + props.store.LeFE_ID
+      LeFE.template(props.exportsKey, props.store) + '_' + props.store.LeFE_ID
     eventEmitter.removeListener(key)
     eventEmitter.addListener(
       key,
@@ -204,7 +202,7 @@ export function rules(props) {
   const model = computed(() => {
     const result = {}
     Object.keys(props.props.rules).forEach(key => {
-      result[key.replace(/\./gi, '-')] = Toolkit.parseValueWithData(
+      result[key.replace(/\./gi, '-')] = LeFE.parseValueWithData(
         key,
         props.store
       )

@@ -1,40 +1,40 @@
-import Toolkit from 'lefe-toolkits'
-import Page from './components/Page'
-import Block from './components/Block'
+import LeFE from '@lefe/api'
+import Page from './components/Page.vue'
+import Block from './components/Block.vue'
 // container
-import Tabs from './components/Container/Tabs/index'
-import TabPane from './components/Container/TabPane/index'
-import Table from './components/Container/Table/index'
-import TableColumn from './components/Container/TableColumn/index'
-import Card from './components/Container/Card/index'
-import Row from './components/Container/Row/index'
-import Col from './components/Container/Col/index'
-import Dialog from './components/Container/Dialog/index'
-import Drawer from './components/Container/Drawer/index'
-import Popover from './components/Container/Popover/index'
-import Tooltip from './components/Container/Tooltip/index'
+import Tabs from './components/Container/Tabs/index.js'
+import TabPane from './components/Container/TabPane/index.js'
+import Table from './components/Container/Table/index.js'
+import TableColumn from './components/Container/TableColumn/index.js'
+import Card from './components/Container/Card/index.js'
+import Row from './components/Container/Row/index.js'
+import Col from './components/Container/Col/index.js'
+import Dialog from './components/Container/Dialog/index.js'
+import Drawer from './components/Container/Drawer/index.js'
+import Popover from './components/Container/Popover/index.js'
+import Tooltip from './components/Container/Tooltip/index.js'
 
 // form
-import Form from './components/Form/Form/index'
-import FormItem from './components/Form/FormItem/index'
-import Input from './components/Form/Input/index'
-import InputNumber from './components/Form/InputNumber/index'
-import Checkbox from './components/Form/Checkbox/index'
-import Radio from './components/Form/Radio/index'
-import DatePicker from './components/Form/DatePicker/index'
-import Select from './components/Form/Select/index'
-import Switch from './components/Form/Switch/index'
-import Transfer from './components/Form/Transfer/index'
+import Form from './components/Form/Form/index.js'
+import FormItem from './components/Form/FormItem/index.js'
+import Input from './components/Form/Input/index.js'
+import InputNumber from './components/Form/InputNumber/index.js'
+import Checkbox from './components/Form/Checkbox/index.js'
+import Radio from './components/Form/Radio/index.js'
+import DatePicker from './components/Form/DatePicker/index.js'
+import Select from './components/Form/Select/index.js'
+import Switch from './components/Form/Switch/index.js'
+import Transfer from './components/Form/Transfer/index.js'
 // block
-import Alert from './components/Block/Alert/index'
-import Badge from './components/Block/Badge/index'
-import Button from './components/Block/Button/index'
-import Html from './components/Block/Html'
-import Image from './components/Block/Image/index'
-import Link from './components/Block/Link/index'
-import Steps from './components/Block/Steps/index'
-import Tag from './components/Block/Tag/index'
-import Upload from './components/Block/Upload/index'
+import Alert from './components/Block/Alert/index.js'
+import Badge from './components/Block/Badge/index.js'
+import Button from './components/Block/Button/index.js'
+import Html from './components/Block/Html.vue'
+import Image from './components/Block/Image/index.js'
+import Link from './components/Block/Link/index.js'
+import Steps from './components/Block/Steps/index.js'
+import Tag from './components/Block/Tag/index.js'
+import Upload from './components/Block/Upload/index.js'
 
 const LeFEPage = {
   install: function (app, options) {
@@ -75,7 +75,7 @@ const LeFEPage = {
     app.component('lefe-tag', Tag[UILibrary])
     app.component('lefe-upload', Upload[UILibrary])
 
-    app.provide('eventEmitter', new Toolkit.EventEmitter())
+    app.provide('eventEmitter', new LeFE.EventEmitter())
     app.provide('http', options.http)
   }
 }

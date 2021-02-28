@@ -6,8 +6,8 @@
     @clear="change('')"
     v-model="stateValue"
   >
-    <template v-if="mergedProps.prepend" #prepend>{{ tpl(mergedProps.prepend) }}</template>
-    <template v-if="mergedProps.append" #append>{{ tpl(mergedProps.append) }}</template>
+    <template v-if="mergedProps.prepend" #prepend>{{ render(mergedProps.prepend) }}</template>
+    <template v-if="mergedProps.append" #append>{{ render(mergedProps.append) }}</template>
   </el-input>
 </template>
 

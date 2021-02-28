@@ -1,20 +1,28 @@
-import { template, getByChain } from './state'
+import { getByChain } from './chain'
 
-export const traversal = block => {
-  let result = []
-  if (!block.children || !block.children.length) return [block]
-  block.children.forEach(child => {
-    result = result.concat(traversal(child))
+export const template = function (tpl, data) {
+  if (!tpl.includes('${')) return tpl
+  let tplString = tpl
+  const keys = []
+  const arr = tplString.match(/\$\{(.*?)\}/g)
+  for (let key in arr) {
+    const s = arr[key].replace('${', '').replace('}', '')
+    keys.push(s)
+  }
+  keys.forEach(key => {
+    tplString = tplString.replace('${' + key + '}', getByChain(data, key))
   })
-  return result
+  return tplString
 }
-export const tpl = (key, data) => {
+
+export const render = (key, data) => {
   if (!key) return ''
   if (typeof key === 'function') return key(data)
-  return key.includes('${') ? template(key, data) : key
+  return template(key, data)
 }
+
 export const parseValueWithData = (key, data) =>
-  getByChain(data, tpl(key, data))
+  getByChain(data, render(key, data))
 
 export const parseValue = (value, data, defaultValue) => {
   if (value === undefined) return defaultValue

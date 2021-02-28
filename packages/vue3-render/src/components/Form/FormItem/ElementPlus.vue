@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import Toolkit from "lefe-toolkits";
+  import LeFE from "@lefe/api";
   import props from '../../../composition/props'
   import { common, events, exportKey } from '../../../composition/setup'
 
@@ -26,9 +26,12 @@
     },
     computed: {
       ruleState() {
-        const { children, state } = this;
-        const block = Toolkit.traversal({ children, state }).find(block => block.state);
-        return this.tpl(block.state).replace(/\./ig, '-')
+        const { children } = this;
+        let state = '';
+        LeFE.traversal({ children }, (node) => {
+          if (node.state) state = node.state;
+        })
+        return LeFE.template(state).replace(/\./ig, '-')
       }
     }
   }
