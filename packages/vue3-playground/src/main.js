@@ -9,7 +9,7 @@ import Vue3Render from '@lefe/vue3-render'
 const app = createApp(App)
 app.use(ElementPlus)
 app.use(Vue3Render, {
-  UILibrary: 'ElementPlus',
+  UILibrary: 'Element',
   http: axios.create()
 })
 app.use(router)

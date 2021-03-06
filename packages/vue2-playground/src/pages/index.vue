@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="main">
-<!--      <lefe-page v-if="!editing" v-bind="page" />-->
+      <lefe-page v-bind="page" />
     </div>
     <div class="navbar">
       <div class="tpls">
@@ -39,7 +39,7 @@
       return {
         page: {
           state: {
-            a: [],
+            a: '',
             page: [],
             tableColumns: [
               { label: '123', key: '123' },
@@ -58,27 +58,8 @@
           },
           children: [
             {
-              exportsKey: 't',
-              state: 'page',
-              src: 'http://localhost:8081/async-component.js',
-              componentName: 'async-component',
-              dataSource: [
-                { 123: 11, 333: 111 },
-                { 123: 22, 333: 222 }
-              ],
-              children: [
-                { props: { label: '日期' } },
-                {
-                  loop: 'tableColumns',
-                  loopArgs: ['tableColumn', 'tableColumnIndex'],
-                  props: {
-                    label: '${tableColumn.label}',
-                    prop: '${tableColumn.key}',
-                    sortable: 'custom'
-                  }
-                }
-              ],
-              events: { sort: 'sort' }
+              componentName: 'lefe-input',
+              state: 'a'
             }
           ]
         },

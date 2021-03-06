@@ -1,7 +1,7 @@
 import AntDV from './AntDV'
-import ElementPlus from './ElementPlus'
+import Element from './Element'
 
 export default {
-  ElementPlus,
+  Element,
   AntDV
 }

@@ -1,12 +1,12 @@
-import Toolkit from 'lefe-toolkits'
+import LeFE from '@lefe/api'
 
 export default {
   data() {
     const { state, store } = this.$props
-    const stateKey = state === undefined ? state : Toolkit.tpl(state, store)
+    const stateKey = state === undefined ? state : LeFE.template(state, store)
     return {
       stateValue: stateKey
-        ? Toolkit.parseValueWithData(stateKey, store)
+        ? LeFE.parseValueWithData(stateKey, store)
         : undefined
     }
   },
@@ -14,7 +14,7 @@ export default {
   computed: {
     stateKey() {
       const { state, store } = this
-      return state === undefined ? state : Toolkit.tpl(state, store)
+      return state === undefined ? state : LeFE.template(state, store)
     }
   },
 

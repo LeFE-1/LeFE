@@ -1,4 +1,4 @@
-import Toolkit from 'lefe-toolkits'
+import LeFE from '@lefe/api'
 
 export default {
   data() {
@@ -14,8 +14,8 @@ export default {
       if (dataSource instanceof Array) {
         this.dataArray = dataSource
       } else if (typeof dataSource === 'string') {
-        this.dataArray = Toolkit.parseValueWithData(dataSource, store)
-        this.$watch('store.' + this.tpl(dataSource), newValue => {
+        this.dataArray = LeFE.parseValueWithData(dataSource, store)
+        this.$watch('store.' + LeFE.template(dataSource, store), newValue => {
           this.dataArray = newValue
           this.originDataArray = newValue
         })
@@ -41,11 +41,11 @@ export default {
       // 阻止发送请求
       if (typeof body === 'boolean' && body === false)
         return new Promise(resolve => resolve(false))
-      return http[method](Toolkit.tpl(url, store), body).then(rep => {
+      return http[method](LeFE.render(url, store), body).then(rep => {
         const repFormat = repFormatter(rep, body, store)
         if (state) {
           eventEmitter.emit(`change_${store.LeFE_ID}`, {
-            key: Toolkit.tpl(state, store),
+            key: LeFE.template(state, store),
             value: repFormat instanceof Array ? repFormat : repFormat.data
           })
         }

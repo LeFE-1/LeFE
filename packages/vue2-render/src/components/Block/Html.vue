@@ -24,7 +24,7 @@
         attrs,
         domProps: {
           ...domProps,
-          innerHTML: this.parseRender,
+          innerHTML: this.parsedRender,
         },
         on: {
           click: this.click

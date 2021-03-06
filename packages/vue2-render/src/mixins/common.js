@@ -1,4 +1,4 @@
-import Toolkit from 'lefe-toolkits'
+import LeFE from '@lefe/api'
 
 export default {
   data() {
@@ -8,8 +8,8 @@ export default {
   },
 
   props: {
-    componentName: String,
     id: String,
+    componentName: String,
     src: String, // async block js 地址
     children: {
       type: Array,
@@ -63,26 +63,26 @@ export default {
     mergedProps() {
       return Object.assign(this.defaultProps, this.parseProps(this.props))
     },
-    parseRender() {
-      return Toolkit.tpl(this.render, this.store)
+    parsedRender() {
+      return LeFE.render(this.render, this.store)
     }
   },
 
   methods: {
     parseProps(pProps, data = {}) {
-      return Toolkit.parseProps(pProps, { ...this.store, ...data })
+      return LeFE.parseProps(pProps, { ...this.store, ...data })
     },
 
     parseValueWithData(key) {
-      return Toolkit.parseValueWithData(key, this.store)
+      return LeFE.parseValueWithData(key, this.store)
     },
 
-    tpl(key) {
-      return Toolkit.tpl(key, this.store)
+    renderWithStore(key) {
+      return LeFE.render(key, this.store)
     },
 
     vif(condition) {
-      return !!Toolkit.parseValue(condition, this.store, true)
+      return !!LeFE.parseValue(condition, this.store, true)
     }
   }
 }

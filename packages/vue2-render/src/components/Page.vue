@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import Toolkit from 'lefe-toolkits';
+  import LeFE from '@lefe/api';
   import Block from './Block'
 
   export default {
@@ -44,9 +44,8 @@
     },
 
     data() {
-      const store = JSON.parse(JSON.stringify(this.state)), computed = {}
-      Toolkit.getDerivedState(store, { children: this.children });
-
+      LeFE.traversal({ children: this.children }, node => node.id || LeFE.md5(JSON.stringify(node) + Math.random()))
+      const computed = {}
       Object.entries(this.$props.pageComputed).forEach(([key, value]) => {
         const isObj = Object.prototype.toString.call(value) === '[object Object]';
         const getFunc = isObj ? value.get : value;
@@ -57,9 +56,9 @@
         })
       })
       return {
-        ...store,
+        ...this.state,
         computed,
-        LeFE_ID: Toolkit.md5(JSON.stringify(this.state)),
+        LeFE_ID: LeFE.md5(JSON.stringify(this.state)),
       }
     },
 
@@ -140,7 +139,7 @@
         if (!Object.prototype.hasOwnProperty.call(this, key)) {  // XXX 只支持 a.b 形式
           if (key.includes('.')) {
             const keys = key.split('.');
-            const parent = Toolkit.getByChain(this, keys.splice(0, keys.length - 1));
+            const parent = LeFE.getByChain(this, keys.splice(0, keys.length - 1));
             parent[keys[keys.length - 1]] = value;
             return resolve && resolve(value);
           }

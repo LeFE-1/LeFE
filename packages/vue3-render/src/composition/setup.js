@@ -20,10 +20,10 @@ export function common(props, context, params) {
     parseProps: (pProps, data) =>
       LeFE.parseProps(pProps, { ...props.store, ...data }),
     mergedProps,
-    render: key => LeFE.render(key, props.store),
+    renderWithStore: key => LeFE.render(key, props.store),
     vif,
     parseValueWithData: key => LeFE.parseValueWithData(key, props.store),
-    parseRender: computed(() => LeFE.render(props.render, props.store))
+    parsedRender: computed(() => LeFE.render(props.render, props.store))
   }
 }
 

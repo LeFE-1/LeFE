@@ -37,7 +37,13 @@ import Tag from './components/Block/Tag/index.js'
 import Upload from './components/Block/Upload/index.js'
 
 import props from './composition/props'
-import { common, state, events, dataSource, exportKey } from './composition/setup'
+import {
+  common,
+  state,
+  events,
+  dataSource,
+  exportKey
+} from './composition/setup'
 
 const Render = {
   install: function (app, options) {
@@ -85,10 +91,10 @@ const Render = {
   Block,
   setup: {
     props,
-    common, 
-    state, 
-    events, 
-    dataSource, 
+    common,
+    state,
+    events,
+    dataSource,
     exportKey
   }
 }

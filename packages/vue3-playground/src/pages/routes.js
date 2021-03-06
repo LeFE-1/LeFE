@@ -1,12 +1,12 @@
 import { h } from 'vue'
 import examples from '@lefe/example'
-import Render from "@lefe/vue3-render";
+import Render from '@lefe/vue3-render'
 
 const Index = [
   {
     path: '/',
     name: 'Playground 实验室',
-    component: () => import('./index.vue')
+    component: () => import('./playground')
   }
 ]
 
@@ -21,13 +21,14 @@ const Props = [
 const Components = examples.map(c => ({
   path: '/' + c.name,
   name: c.name,
-  component: () => Promise.resolve({
-    render: function () {
-      return h(Render.Page, {
-        ...c.module
-      })
-    }
-  })
+  component: () =>
+    Promise.resolve({
+      render: function () {
+        return h(Render.Page, {
+          ...c.module
+        })
+      }
+    })
 }))
 
 const Routes = [...Index, ...Components, ...Props]

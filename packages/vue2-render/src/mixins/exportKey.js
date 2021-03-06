@@ -1,11 +1,11 @@
-import Toolkit from 'lefe-toolkits'
+import LeFE from '@lefe/api'
 
 export default {
   created() {
     const { exportsKey, store, eventEmitter } = this
     if (!exportsKey) return
-    const that = this
-    const key = Toolkit.tpl(exportsKey, store) + '_' + store.LeFE_ID
+    // const that = this
+    const key = LeFE.template(exportsKey, store) + '_' + store.LeFE_ID
     eventEmitter.removeListener(key)
     eventEmitter.addListener(
       key,
@@ -14,19 +14,19 @@ export default {
           switch (action) {
             case 'change':
               Object.entries(data).forEach(([key, value]) => {
-                if (that[key] === undefined) {
+                if (this[key] === undefined) {
                   console.warn(`No ${key} defined in ${exportsKey}`)
                 } else {
-                  that[key] = value
+                  this[key] = value
                 }
               })
               break
             case 'trigger':
-              if (that[method] === undefined) {
+              if (this[method] === undefined) {
                 console.warn(`No ${method} method defined in ${exportsKey}`)
                 reject()
               } else {
-                const p = that[method].call(that, params)
+                const p = this[method].call(this, params)
                 if (p instanceof Promise) {
                   p.then(rep => resolve(rep)).catch(e => reject(e))
                 } else {
@@ -35,7 +35,7 @@ export default {
               }
               break
             case 'get':
-              resolve(key ? that[key] : that)
+              resolve(key ? this[key] : this)
           }
         } catch (e) {
           reject && reject(e)
