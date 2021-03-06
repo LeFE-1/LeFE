@@ -1,6 +1,6 @@
 {
   "name": "@lefe/vue3-render",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "json/schema to UI/Page used vue3",
   "main": "lib/index.umd.js",
   "author": "gavincly@163.com",
@@ -15,7 +15,7 @@
     "element-plus": "^1.0.1-beta.27"
   },
   "dependencies": {
-    "@lefe/api": "^1.0.1",
+    "@lefe/api": "1.0.2",
     "core-js": "^3.6.5",
     "vue": "^3.0.5"
   },
@@ -29,9 +29,9 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
+    "element-plus": "^1.0.1-beta.27",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0",
-    "element-plus": "^1.0.1-beta.27"
+    "eslint-plugin-vue": "^7.0.0-0"
   },
   "eslintConfig": {
     "root": true,
