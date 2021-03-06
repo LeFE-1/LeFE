@@ -1,6 +1,6 @@
 {
   "name": "lefe-playground",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "private": true,
   "author": "gavincly@163.com",
@@ -12,7 +12,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@lefe/vue3-render": "0.2.0",
+    "@lefe/vue3-render": "0.3.0",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.1-beta.27",
     "vue": "^3.0.5",

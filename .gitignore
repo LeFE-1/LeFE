@@ -21,3 +21,5 @@ yarn-error.log*
 *.sln
 *.sw?
 .eslintcache
+lerna-debug.log
+yarn-error.log

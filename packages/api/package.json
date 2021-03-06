@@ -1,6 +1,6 @@
 {
   "name": "@lefe/api",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "LeFE common api",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
