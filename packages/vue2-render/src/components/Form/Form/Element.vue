@@ -16,7 +16,7 @@
 
 <script>
   import { commonMixin, eventsMixin, exportKeyMixin } from '../../../mixins'
-  import LeFE from "@lefe/api";
+  import LeFE from "@lefe-1/api";
 
   export default {
     name: 'LeFEForm',

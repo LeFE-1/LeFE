@@ -12,7 +12,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@lefe/vue3-render": "0.3.0",
+    "@lefe-1/vue3-render": "0.3.0",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.1-beta.27",
     "vue": "^3.0.5",

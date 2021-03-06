@@ -10,7 +10,7 @@
 <script>
   import { reactive, computed, watch, inject, ref } from 'vue'
   import Block from './Block.vue'
-  import LeFE from '@lefe/api';
+  import LeFE from '@lefe-1/api';
 
   export default {
     name: 'LeFEPage',

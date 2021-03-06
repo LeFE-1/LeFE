@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import LeFE from '@lefe/api'
+  import LeFE from '@lefe-1/api'
   import { commonMixin } from '../mixins'
 
   export default {

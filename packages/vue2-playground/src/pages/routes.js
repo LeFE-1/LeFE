@@ -1,5 +1,5 @@
-import examples from '@lefe/example'
-import Render from '@lefe/vue2-render/src/main'
+import examples from '@lefe-1/example'
+import Render from '@lefe-1/vue2-render'
 
 const Index = [
   {

@@ -3,7 +3,7 @@ import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
-import VueRender from '@lefe/vue2-render/src/main'
+import VueRender from '@lefe-1/vue2-render'
 import VueRouter from 'vue-router'
 import routes from './pages/routes'
 import axios from 'axios'

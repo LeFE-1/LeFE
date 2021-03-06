@@ -1,6 +1,6 @@
 import { h } from 'vue'
-import examples from '@lefe/example'
-import Render from '@lefe/vue3-render'
+import examples from '@lefe-1/example'
+import Render from '@lefe-1/vue3-render'
 
 const Index = [
   {

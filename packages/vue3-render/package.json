@@ -1,5 +1,5 @@
 {
-  "name": "@lefe/vue3-render",
+  "name": "@lefe-1/vue3-render",
   "version": "0.3.0",
   "description": "json/schema to UI/Page used vue3",
   "main": "lib/index.umd.js",
@@ -15,7 +15,7 @@
     "element-plus": "^1.0.1-beta.27"
   },
   "dependencies": {
-    "@lefe/api": "1.1.0",
+    "@lefe-1/api": "1.1.0",
     "core-js": "^3.6.5",
     "vue": "^3.0.5"
   },

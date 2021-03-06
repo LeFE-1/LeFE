@@ -1,5 +1,5 @@
 {
-  "name": "@lefe/vue2-render",
+  "name": "@lefe-1/vue2-render",
   "version": "0.3.0",
   "description": "json/schema to UI/Page used vue2",
   "main": "lib/index.umd.js",
@@ -12,7 +12,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@lefe/api": "1.1.0",
+    "@lefe-1/api": "1.1.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },

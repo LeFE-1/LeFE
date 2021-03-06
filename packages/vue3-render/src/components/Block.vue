@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import LeFE from '@lefe/api'
+  import LeFE from '@lefe-1/api'
   import props from '../composition/props'
   import { common } from '../composition/setup'
 

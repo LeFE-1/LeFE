@@ -6,7 +6,7 @@ import {
   onBeforeMount,
   watch
 } from 'vue'
-import LeFE from '@lefe/api'
+import LeFE from '@lefe-1/api'
 
 export function common(props, context, params) {
   const { defaultProps = {} } = params || {}

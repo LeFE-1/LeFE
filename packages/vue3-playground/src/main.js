@@ -4,7 +4,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 import axios from 'axios'
 import router from './router'
-import Vue3Render from '@lefe/vue3-render'
+import Vue3Render from '@lefe-1/vue3-render'
 
 const app = createApp(App)
 app.use(ElementPlus)
