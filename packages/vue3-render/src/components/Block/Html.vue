@@ -26,7 +26,7 @@
       const { rootTag, ...restProps } = this.mergedProps;
       return h(rootTag, {
         ...restProps,
-        innerHTML: this.parseRender,
+        innerHTML: this.parsedRender,
         onClick: this.click
       })
     }

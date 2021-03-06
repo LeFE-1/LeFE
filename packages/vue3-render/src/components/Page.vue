@@ -9,8 +9,8 @@
 
 <script>
   import { reactive, computed, watch, inject, ref } from 'vue'
-  import Block from './Block'
-  import Toolkit from 'lefe-toolkits';
+  import Block from './Block.vue'
+  import LeFE from '@lefe/api';
 
   export default {
     name: 'LeFEPage',
@@ -18,7 +18,6 @@
     components: { Block },
 
     props: {
-      componentName: String,
       children: Array,
       state: {
         type: Object,
@@ -43,7 +42,8 @@
     },
 
     setup(props, context) {
-      Toolkit.getDerivedState(JSON.parse(JSON.stringify(props.state)), { children: props.children })
+      // LeFE.getDerivedState(JSON.parse(JSON.stringify(props.state)), { children: props.children })
+      LeFE.traversal({ children: props.children }, node => node.id || LeFE.md5(JSON.stringify(node) + Math.random()))
       const eventEmitter = inject('eventEmitter');
       const store = {};
       Object.keys(props.state).forEach(key => {
@@ -68,13 +68,13 @@
         const value = props.watch[key];
         if (Object.prototype.toString.call(value) === '[object Function]') {
           watch(
-            () => Toolkit.getByChain(store, key),
+            () => LeFE.getByChain(store, key),
             (newVal, oldVal) => value(newVal, oldVal, context),
           )
         } else if (Object.prototype.toString.call(value) === '[object Object]') {
           const { handler, ...options } = value;
           watch(
-            () => Toolkit.getByChain(store, key),
+            () => LeFE.getByChain(store, key),
             (newVal, oldVal) => handler(newVal, oldVal, context),
             options
           )
@@ -92,7 +92,7 @@
 
     data() {
       return {
-        LeFE_ID: Toolkit.md5(JSON.stringify(this.state)),
+        LeFE_ID: LeFE.md5(JSON.stringify(this.state)),
       }
     },
 
@@ -149,7 +149,7 @@
         if (!Object.prototype.hasOwnProperty.call(this, key)) {  // XXX 只支持 a.b 形式
           if (key.includes('.')) {
             const keys = key.split('.');
-            const parent = Toolkit.getByChain(this, keys.splice(0, keys.length - 1));
+            const parent = LeFE.getByChain(this, keys.splice(0, keys.length - 1));
             parent[keys[keys.length - 1]] = value;
             return resolve && resolve(value);
           }
@@ -180,7 +180,7 @@
           reject && reject();
         }
       },
-      // TODO 缓存策略
+      // TODO cache?
       _$(id) {
         const { LeFE_ID, eventEmitter } = this;
         return (function (id, eventEmitter) {

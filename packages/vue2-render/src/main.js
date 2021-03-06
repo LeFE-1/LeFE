@@ -1,4 +1,4 @@
-import Toolkit from 'lefe-toolkits'
+import LeFE from '@lefe/api'
 import Page from './components/Page'
 import Block from './components/Block'
 // container
@@ -36,7 +36,15 @@ import Steps from './components/Block/Steps/index'
 import Tag from './components/Block/Tag/index'
 import Upload from './components/Block/Upload/index'
 
-const LeFEPage = {
+import {
+  stateMixin,
+  exportKeyMixin,
+  eventsMixin,
+  commonMixin,
+  dataSourceMixin
+} from './mixins'
+
+const Render = {
   install: function (Vue, options) {
     const UILibrary = options.UILibrary || ''
     Vue.component('lefe-page', Page)
@@ -75,9 +83,18 @@ const LeFEPage = {
     Vue.component('lefe-tag', Tag[UILibrary])
     Vue.component('lefe-upload', Upload[UILibrary])
 
-    Vue.prototype.eventEmitter = new Toolkit.EventEmitter()
+    Vue.prototype.eventEmitter = new LeFE.EventEmitter()
     Vue.prototype.http = options.http
+  },
+  Page,
+  Block,
+  mixins: {
+    stateMixin,
+    exportKeyMixin,
+    eventsMixin,
+    commonMixin,
+    dataSourceMixin
   }
 }
 
-export default LeFEPage
+export default Render

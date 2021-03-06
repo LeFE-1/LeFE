@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import Toolkit from 'lefe-toolkits'
+  import LeFE from '@lefe/api'
   import { commonMixin } from '../mixins'
 
   export default {
@@ -35,7 +35,7 @@
     computed: {
       md5componentName() {
         if (this.src || (this.blocks.length && this.blocks[0].src)) {
-          return this.componentName + '-' + Toolkit.md5(this.src);
+          return this.componentName + '-' + LeFE.md5(this.src);
         } else {
           return this.componentName;
         }

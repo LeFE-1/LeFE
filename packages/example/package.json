@@ -1,0 +1,9 @@
+{
+  "name": "@lefe/example",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "author": "gavincly@163.com",
+  "license": "MIT",
+  "main": "index.js"
+}
