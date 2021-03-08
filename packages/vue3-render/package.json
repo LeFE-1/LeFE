@@ -11,6 +11,19 @@
     "build-lib": "vue-cli-service build --target lib --name index --dest lib src/main.js",
     "lint": "vue-cli-service lint"
   },
+  "keywords": [
+    "vue3",
+    "vueComponent",
+    "component",
+    "components",
+    "ui",
+    "framework",
+    "frontend",
+    "renderer",
+    "json",
+    "schema",
+    "lowcode"
+  ],
   "peerDependencies": {
     "element-plus": "^1.0.1-beta.27"
   },
