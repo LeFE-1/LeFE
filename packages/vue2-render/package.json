@@ -11,6 +11,19 @@
     "build-lib": "vue-cli-service build --target lib --name index --dest lib src/main.js",
     "lint": "vue-cli-service lint"
   },
+  "keywords": [
+    "vue",
+    "vueComponent",
+    "component",
+    "components",
+    "ui",
+    "framework",
+    "frontend",
+    "renderer",
+    "json",
+    "schema",
+    "lowcode"
+  ],
   "dependencies": {
     "@lefe-1/api": "1.1.0",
     "core-js": "^3.6.5",
